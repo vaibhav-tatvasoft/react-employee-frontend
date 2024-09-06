@@ -1,0 +1,33 @@
+/* src/ExpandableSection.css */
+.expandable-container {
+    margin: 20px;
+}
+
+.expandable-item {
+    margin-bottom: 20px;
+}
+
+.expandable-header {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    outline: none;
+    transition: background-color 0.3s;
+}
+
+.expandable-header:hover {
+    background-color: #45a049;
+}
+
+.expandable-content {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+}
