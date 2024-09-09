@@ -3,7 +3,9 @@ import React, { useState, useRef } from "react";
 import "./APIElement.css"; // Import the CSS file
 import APIHeaders from "./APIHeaders";
 import APIRequestBody from "./APIRequestBody";
-import APIResponseBody from "./APIResponseBody";
+import APIResponse from "./APIResponse";
+import AxiosClient from "./AxiosClient";
+import { Axios } from "axios";
 
 const APIElement = (props) => {
   const formRef = useRef();
@@ -37,76 +39,47 @@ const APIElement = (props) => {
     }
 
     function getAllEmployees(header) {
-      fetch("http://localhost:5110/api/Test")
+      AxiosClient.get()
+      .then((response) => {
+        console.log(response.data);
+        setResponse(response.data);
+      }) 
+      .catch((error) => {
+        console.error("Error occurred:", error);
+      });
+    }
+    function postAllEmployees(headers, request) {
+      console.log("request body: ", request);
+      AxiosClient.post('', request)
         .then((response) => {
-          if (!response.ok) {
-            console.log("error occured");
-          }
-          return response.json();
+          console.log("responseBody: ", response.data);
+          setResponse(response.data);
         })
-        .then((data) => {
-          console.log(data);
-          setResponse(data);
+        .catch((error) => {
+          console.error("Error occurred:", error);
         });
     }
-    function postAllEmployees(header, request) {
-      console.log("request body: " + request);
-      fetch("http://localhost:5110/api/Test", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(request),
-      })
+    
+    function updateEmployeeById(id, request) {
+      let url = `/${id}`;
+      AxiosClient.patch(url, request)
         .then((response) => {
-          if (!response.ok) {
-            console.log("error occured");
-          }
-          //console.log(response.text());
-          return response.text();
+          console.log("responseBody: ", response.data);
+          setResponse(response.data);
         })
-        .then((data) => {
-          console.log("resposeBody: " + data);
-          setResponse(data);
+        .catch((error) => {
+          console.error("Error occurred:", error);
         });
     }
-    function updateEmployeeById(header, request) {
-      let url = "http://localhost:5110/api/Test/" + header;
-      fetch(url, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(request),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            console.log("error occured");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log("responseBody: " + data);
-          setResponse(data);
-        });
-    }
+    
     function deleteEmployeeById(request) {
-      fetch("http://localhost:5110/api/Test", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(request),
-      })
+      AxiosClient.delete('', { data: request })
         .then((response) => {
-          if (!response.ok) {
-            console.log("error occured");
-          }
-          return response.text();
+          console.log("responseBody: ", response.data);
+          setResponse(response.data);
         })
-        .then((data) => {
-          console.log("responseBody: " + data);
-          setResponse(data);
+        .catch((error) => {
+          console.error("Error occurred:", error);
         });
     }
   };
@@ -117,7 +90,7 @@ const APIElement = (props) => {
       <form ref={formRef} onSubmit={handleFormSubmit}>
         <APIHeaders />
         <APIRequestBody />
-        <APIResponseBody responseBodyResult={response} />
+        <APIResponse responseBodyResult={response} />
         <button type="submit">Submit</button>
       </form>
     </div>
