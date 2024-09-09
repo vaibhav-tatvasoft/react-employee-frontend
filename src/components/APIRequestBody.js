@@ -1,12 +1,17 @@
-import { useState } from "react";
+import React from "react";
 
-function APIRequestBody() {
+function APIRequestBody({ onChange, value, name }) {
   return (
     <div>
       <label>
-        {" "}
-        requestBody
-        <textarea name="requestBody" rows={10} cols={10}></textarea>
+        Request Body:
+        <textarea
+          name={name}
+          rows={10}
+          cols={30}
+          onChange={onChange}
+          value={value}
+        ></textarea>
       </label>
     </div>
   );

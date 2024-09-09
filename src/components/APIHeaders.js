@@ -1,10 +1,13 @@
-import { useState } from "react";
-
-function APIHeaders() {
+function APIHeaders({ onChange, value, name }) {
   return (
     <div className="api-headers">
-      <label>header1</label>
-      <input name="header" type="text"/>
+      <label>Header</label>
+      <input
+        name={name}
+        type="text"
+        onChange={onChange}
+        value={value}
+      />
     </div>
   );
 }
