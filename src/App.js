@@ -5,15 +5,18 @@ import SwaggerLikeUI from "./components/SwaggerLikeUI";
 import APIRequestBody from "./components/APIRequestBody";
 import APIHeaders from "./components/APIHeaders";
 import APIResponseBody from "./components/APIResponseBody";
+import Home from "./components/Home";
+import EmployeeForm from "./components/EmployeeForm";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="SwaggerUI">
-      <APIElement httpMethod="GET" />
-      <APIElement httpMethod="POST" />
-      <APIElement httpMethod="DELETE" />
-      <APIElement httpMethod="PATCH" />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/employee-form" element={<EmployeeForm />} />
+      </Routes>
+    </Router>
   );
 }
 

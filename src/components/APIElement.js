@@ -41,16 +41,7 @@ const APIElement = (props) => {
     },
   });
 
-  function getAllEmployees(header) {
-    AxiosClient.get()
-      .then((response) => {
-        console.log(response.data);
-        setResponse(response.data);
-      })
-      .catch((error) => {
-        console.error("Error occurred:", error);
-      });
-  }
+
   function postAllEmployees(headers, request) {
     console.log("request body: ", request);
     AxiosClient.post("", request)
@@ -106,5 +97,9 @@ const APIElement = (props) => {
     </div>
   );
 };
+export async function getAllEmployees() {
+  const response = await AxiosClient.get();
+  return response;
+}
 
 export default APIElement;
